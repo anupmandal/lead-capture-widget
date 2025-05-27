@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Opt-in Widget: Comprehensive Implementation Reference</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        
+        .category-section {
+            margin: 40px 0;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .reference-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .reference-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .reference-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .json-code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 5px 0;
+            overflow-x: auto;
+        }
+        
+        .js-code {
+            background: #27ae60;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 5px 0;
+            overflow-x: auto;
+        }
+        
+        .example-code {
+            background: #f39c12;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 5px 0;
+            overflow-x: auto;
+        }
+        
+        .usage-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 2px;
+        }
+        
+        .usage-required {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .usage-recommended {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .usage-optional {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .usage-advanced {
+            background: #9b59b6;
+            color: white;
+        }
+        
+        .data-type {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .default-value {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .toc {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .integration-example {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .integration-example h4 {
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #f39c12;
+        }
+        
+        .warning-box strong {
+            color: #d68910;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+        
+        .success-box strong {
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Email Opt-in Widget: Comprehensive Implementation Reference</h1>
+        
+        <div class="toc">
+            <h3>📋 Table of Contents</h3>
+            <ul>
+                <li><a href="#campaign">🎯 Campaign Management</a></li>
+                <li><a href="#display">📺 Display Behavior</a></li>
+                <li><a href="#content">📝 Content & Messaging</a></li>
+                <li><a href="#styling">🎨 Visual Styling</a></li>
+                <li><a href="#timing">⏰ Timing & Auto-Close</a></li>
+                <li><a href="#frequency">🔄 Frequency & Session Control</a></li>
+                <li><a href="#targeting">🎯 Targeting & Personalization</a></li>
+                <li><a href="#mobile">📱 Mobile Optimization</a></li>
+                <li><a href="#analytics">📊 Analytics & Tracking</a></li>
+                <li><a href="#integrations">🔗 Platform Integrations</a></li>
+                <li><a href="#testing">🧪 A/B Testing & Variants</a></li>
+                <li><a href="#advanced">⚙️ Advanced Configuration</a></li>
+            </ul>
+        </div>
+
+        <!-- Campaign Management -->
+        <div class="category-section" id="campaign">
+            <h2>🎯 Campaign Management</h2>
+            <p>Core campaign identification and control settings.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Campaign Name</strong></td>
+                        <td><div class="json-code">"campaign": {<br>  "name": "Holiday Newsletter 2024"<br>}</div></td>
+                        <td><div class="js-code">campaign: {<br>  name: "Holiday Newsletter 2024"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"Black Friday 2024"<br>"Blog Newsletter"<br>"Product Launch"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Campaign ID</strong></td>
+                        <td><div class="json-code">"campaign": {<br>  "id": "holiday_newsletter_2024"<br>}</div></td>
+                        <td><div class="js-code">campaign: {<br>  id: "holiday_newsletter_2024"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"blackfriday_2024"<br>"blog_newsletter"<br>"product_launch"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Campaign Status</strong></td>
+                        <td><div class="json-code">"campaign": {<br>  "status": "active"<br>}</div></td>
+                        <td><div class="js-code">campaign: {<br>  status: "active"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"active"<br>"paused"<br>"draft"<br>"expired"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Campaign Priority</strong></td>
+                        <td><div class="json-code">"campaign": {<br>  "priority": "high"<br>}</div></td>
+                        <td><div class="js-code">campaign: {<br>  priority: "high"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"low"<br>"medium"<br>"high"<br>"urgent"</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="integration-example">
+                <h4>📋 Complete Campaign Configuration Example</h4>
+                <div class="json-code">
+{<br>
+  "campaign": {<br>
+    "name": "Holiday Email Newsletter 2024",<br>
+    "id": "holiday_newsletter_2024",<br>
+    "status": "active",<br>
+    "priority": "high",<br>
+    "startDate": "2024-12-01T00:00:00Z",<br>
+    "endDate": "2024-12-31T23:59:59Z",<br>
+    "description": "Collect email subscribers for holiday promotions",<br>
+    "tags": ["holiday", "newsletter", "promotion"]<br>
+  }<br>
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Behavior -->
+        <div class="category-section" id="display">
+            <h2>📺 Display Behavior</h2>
+            <p>Controls when, where, and how the widget appears to users.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Display Mode</strong></td>
+                        <td><div class="json-code">"display": {<br>  "mode": "popup"<br>}</div></td>
+                        <td><div class="js-code">mode: "popup"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"popup" - Modal overlay<br>"inline" - Page embedding<br>"slide" - Side panel</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trigger Delay</strong></td>
+                        <td><div class="json-code">"display": {<br>  "triggerDelay": 5000<br>}</div></td>
+                        <td><div class="js-code">triggerDelay: 5000</div></td>
+                        <td><span class="data-type">Number (ms)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">3000 - 3 seconds<br>10000 - 10 seconds<br>0 - Immediate</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Interaction Required</strong></td>
+                        <td><div class="json-code">"display": {<br>  "userInteractionRequired": true<br>}</div></td>
+                        <td><div class="js-code">userInteractionRequired: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Wait for scroll/click<br>false - Show after delay</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Target Container</strong></td>
+                        <td><div class="json-code">"display": {<br>  "targetContainer": "#sidebar"<br>}</div></td>
+                        <td><div class="js-code">targetContainer: "#sidebar"</div></td>
+                        <td><span class="data-type">String (CSS Selector)</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"#sidebar"<br>".widget-area"<br>"#content-bottom"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Z-Index</strong></td>
+                        <td><div class="json-code">"display": {<br>  "zIndex": 10000<br>}</div></td>
+                        <td><div class="js-code">zIndex: 10000</div></td>
+                        <td><span class="data-type">Number</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">9999 - Below most modals<br>10000 - Standard (default)<br>99999 - Above everything</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="success-box">
+                <strong>💡 Best Practice:</strong> Always use <code>userInteractionRequired: true</code> for better user experience. This ensures users have shown some interest before seeing the popup.
+            </div>
+        </div>
+
+        <!-- Content & Messaging -->
+        <div class="category-section" id="content">
+            <h2>📝 Content & Messaging</h2>
+            <p>All text content, messaging, and user-facing copy configuration.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Headline</strong></td>
+                        <td><div class="json-code">"content": {<br>  "headline": "Stay Updated!"<br>}</div></td>
+                        <td><div class="js-code">headline: "Stay Updated!"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"📧 Join Our Newsletter"<br>"🎁 Get Exclusive Deals"<br>"📚 Weekly Industry Insights"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Subheading</strong></td>
+                        <td><div class="json-code">"content": {<br>  "subheading": "Get latest updates"<br>}</div></td>
+                        <td><div class="js-code">subheading: "Get latest updates"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"No spam, unsubscribe anytime"<br>"Join 10,000+ happy subscribers"<br>"Weekly tips & exclusive content"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Button Text</strong></td>
+                        <td><div class="json-code">"content": {<br>  "buttonText": "Subscribe Now"<br>}</div></td>
+                        <td><div class="js-code">buttonText: "Subscribe Now"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"Get Started"<br>"Join Free"<br>"Send Me Updates"<br>"Count Me In!"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Close Button Text</strong></td>
+                        <td><div class="json-code">"content": {<br>  "closeButtonText": "×"<br>}</div></td>
+                        <td><div class="js-code">closeButtonText: "×"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"×" - Standard X<br>"✕" - Heavy X<br>"Close" - Text button</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email Placeholder</strong></td>
+                        <td><div class="json-code">"content": {<br>  "emailPlaceholder": "Enter email"<br>}</div></td>
+                        <td><div class="js-code">emailPlaceholder: "Enter email"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"Your email address"<br>"you@company.com"<br>"Enter your email"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy Note</strong></td>
+                        <td><div class="json-code">"content": {<br>  "privacyNote": "We respect privacy"<br>}</div></td>
+                        <td><div class="js-code">privacyNote: "We respect privacy"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"No spam, ever"<br>"Unsubscribe anytime"<br>"We respect your privacy"</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎯 Advanced Content Features</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Social Proof</strong></td>
+                        <td><div class="json-code">"content": {<br>  "socialProof": {<br>    "enabled": true,<br>    "count": 15000,<br>    "message": "Join {{count}} subscribers"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Shows subscriber count to build credibility</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Urgency Message</strong></td>
+                        <td><div class="json-code">"content": {<br>  "urgency": {<br>    "enabled": true,<br>    "message": "Limited time offer!",<br>    "countdown": true<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Creates scarcity to encourage action</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-language Support</strong></td>
+                        <td><div class="json-code">"content": {<br>  "localization": {<br>    "en": {"headline": "Stay Updated!"},<br>    "es": {"headline": "¡Mantente Actualizado!"},<br>    "fr": {"headline": "Restez Informé!"}<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-advanced">Advanced</span></td>
+                        <td>Support for multiple languages</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Visual Styling -->
+        <div class="category-section" id="styling">
+            <h2>🎨 Visual Styling</h2>
+            <p>Complete visual customization including colors, typography, spacing, and effects.</p>
+            
+            <h3>🌈 Color Configuration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Primary Color</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "colors": {<br>    "primary": "#007bff"<br>  }<br>}</div></td>
+                        <td><div class="js-code">primaryColor: "#007bff"</div></td>
+                        <td><span class="data-type">String (Hex/RGB)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"#007bff" - Blue<br>"#28a745" - Green<br>"#dc3545" - Red</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Background Color</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "colors": {<br>    "background": "#ffffff"<br>  }<br>}</div></td>
+                        <td><div class="js-code">backgroundColor: "#ffffff"</div></td>
+                        <td><span class="data-type">String (Hex/RGB)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"#ffffff" - White<br>"#f8f9fa" - Light gray<br>"#343a40" - Dark</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Text Color</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "colors": {<br>    "text": "#333333"<br>  }<br>}</div></td>
+                        <td><div class="js-code">textColor: "#333333"</div></td>
+                        <td><span class="data-type">String (Hex/RGB)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"#333333" - Dark gray<br>"#212529" - Almost black<br>"#6c757d" - Medium gray</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overlay Color</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "overlay": {<br>    "color": "rgba(0,0,0,0.6)"<br>  }<br>}</div></td>
+                        <td><div class="js-code">overlayColor: "rgba(0,0,0,0.6)"</div></td>
+                        <td><span class="data-type">String (RGBA)</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"rgba(0,0,0,0.3)" - Light<br>"rgba(0,0,0,0.6)" - Medium<br>"rgba(0,0,0,0.8)" - Heavy</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📝 Typography Configuration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Font Family</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "typography": {<br>    "fontFamily": "Inter, sans-serif"<br>  }<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"Inter, sans-serif"<br>"Georgia, serif"<br>"'Roboto', sans-serif"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Font Size</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "typography": {<br>    "fontSize": "16px"<br>  }<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"14px" - Small<br>"16px" - Standard<br>"18px" - Large</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Font Weight</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "typography": {<br>    "fontWeight": "400"<br>  }<br>}</div></td>
+                        <td><span class="data-type">String/Number</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"300" - Light<br>"400" - Normal<br>"600" - Semi-bold<br>"700" - Bold</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎨 Design & Effects</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Border Radius</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "design": {<br>    "borderRadius": 12<br>  }<br>}</div></td>
+                        <td><span class="data-type">Number (px)</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">0 - Square corners<br>8 - Slightly rounded<br>12 - Rounded<br>20 - Very rounded</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Box Shadow</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "design": {<br>    "boxShadow": "0 20px 60px rgba(0,0,0,0.3)"<br>  }<br>}</div></td>
+                        <td><span class="data-type">String (CSS)</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"0 4px 12px rgba(0,0,0,0.1)" - Light<br>"0 20px 60px rgba(0,0,0,0.3)" - Heavy<br>"none" - No shadow</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Border</strong></td>
+                        <td><div class="json-code">"styling": {<br>  "design": {<br>    "border": "2px solid #007bff"<br>  }<br>}</div></td>
+                        <td><span class="data-type">String (CSS)</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">"1px solid #ddd" - Light<br>"2px solid #007bff" - Primary<br>"none" - No border</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Timing & Auto-Close -->
+        <div class="category-section" id="timing">
+            <h2>⏰ Timing & Auto-Close</h2>
+            <p>Control widget display timing and automatic closure behavior.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Auto-Hide Enabled</strong></td>
+                        <td><div class="json-code">"autoHide": {<br>  "enabled": true<br>}</div></td>
+                        <td><div class="js-code">autoHideEnabled: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Enable auto-close<br>false - Manual close only</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Auto-Hide Delay</strong></td>
+                        <td><div class="json-code">"autoHide": {<br>  "delay": 30000<br>}</div></td>
+                        <td><div class="js-code">autoHideDelay: 30000</div></td>
+                        <td><span class="data-type">Number (ms)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">20000 - 20 seconds<br>30000 - 30 seconds<br>60000 - 1 minute</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inactivity Detection</strong></td>
+                        <td><div class="json-code">"autoHide": {<br>  "onInactivity": true<br>}</div></td>
+                        <td><div class="js-code">onInactivity: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Wait for inactivity<br>false - Absolute timer</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pause on Interaction</strong></td>
+                        <td><div class="json-code">"autoHide": {<br>  "pauseOnInteraction": true<br>}</div></td>
+                        <td><div class="js-code">pauseOnInteraction: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Reset timer on activity<br>false - Continue countdown</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fade-out Warning</strong></td>
+                        <td><div class="json-code">"autoHide": {<br>  "fadeOutWarning": 5000<br>}</div></td>
+                        <td><div class="js-code">fadeOutWarning: 5000</div></td>
+                        <td><span class="data-type">Number (ms)</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">3000 - 3-second warning<br>5000 - 5-second warning<br>0 - No warning</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎉 Post-Submission Auto-Close</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Close After Submission</strong></td>
+                        <td><div class="json-code">"closeAfterSubmission": {<br>  "enabled": true,<br>  "delay": 3000<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">2000 - 2 seconds<br>3000 - 3 seconds<br>5000 - 5 seconds</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Success Message</strong></td>
+                        <td><div class="json-code">"closeAfterSubmission": {<br>  "successMessage": "🎉 Welcome!"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"🎉 Welcome! Check your email"<br>"Thanks for subscribing!"<br>"Success! You're all set"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Allow Manual Close After Submission</strong></td>
+                        <td><div class="json-code">"closeAfterSubmission": {<br>  "allowManualCloseAfterSubmission": true<br>}</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - User can close early<br>false - Must wait for timer</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> Always set <code>allowManualCloseAfterSubmission: true</code> to ensure users maintain control even during success message display.
+            </div>
+        </div>
+
+        <!-- Frequency & Session Control -->
+        <div class="category-section" id="frequency">
+            <h2>🔄 Frequency & Session Control</h2>
+            <p>Manage how often users see widgets and control session-based behavior.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Max Per Session</strong></td>
+                        <td><div class="json-code">"frequency": {<br>  "maxImpressionsPerSession": 1<br>}</div></td>
+                        <td><div class="js-code">maxImpressionsPerSession: 1</div></td>
+                        <td><span class="data-type">Number</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">1 - Once per session<br>2 - Twice per session<br>3 - Three times max</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Max Per Day</strong></td>
+                        <td><div class="json-code">"frequency": {<br>  "maxImpressionsPerDay": 2<br>}</div></td>
+                        <td><div class="js-code">maxImpressionsPerDay: 2</div></td>
+                        <td><span class="data-type">Number</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">1 - Once daily<br>2 - Twice daily<br>5 - Up to 5 times</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dismissal Cooldown</strong></td>
+                        <td><div class="json-code">"frequency": {<br>  "cooldownAfterDismissal": 7<br>}</div></td>
+                        <td><div class="js-code">dismissedCookieExpiry: 7</div></td>
+                        <td><span class="data-type">Number (days)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">1 - 1 day cooldown<br>7 - 1 week cooldown<br>30 - 1 month cooldown</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Submission Cooldown</strong></td>
+                        <td><div class="json-code">"frequency": {<br>  "cooldownAfterSubmission": "never"<br>}</div></td>
+                        <td><div class="js-code">submittedCookieExpiry: 365</div></td>
+                        <td><span class="data-type">String/Number</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">"never" - Permanent<br>90 - 90 days<br>365 - 1 year</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Max Total Impressions</strong></td>
+                        <td><div class="json-code">"frequency": {<br>  "maxImpressionsPerUser": 10<br>}</div></td>
+                        <td><div class="js-code">maxImpressionsPerUser: 10</div></td>
+                        <td><span class="data-type">Number</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">5 - Lifetime limit of 5<br>10 - Up to 10 total<br>null - No limit</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🍪 Cookie Management</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cookie Prefix</strong></td>
+                        <td><div class="json-code">"cookies": {<br>  "cookiePrefix": "newsletter_"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Namespace cookies by campaign</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dismissed Cookie Name</strong></td>
+                        <td><div class="json-code">"cookies": {<br>  "dismissedCookieName": "campaign_dismissed"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Custom name for dismissal tracking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Submitted Cookie Name</strong></td>
+                        <td><div class="json-code">"cookies": {<br>  "submittedCookieName": "campaign_submitted"<br>}</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Custom name for conversion tracking</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="integration-example">
+                <h4>📊 Frequency Control Strategy Examples</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                    <div>
+                        <strong>🛍️ E-commerce (Aggressive)</strong>
+                        <div class="json-code" style="margin-top: 10px;">
+{<br>
+  "frequency": {<br>
+    "maxImpressionsPerSession": 2,<br>
+    "maxImpressionsPerDay": 3,<br>
+    "cooldownAfterDismissal": 3,<br>
+    "cooldownAfterSubmission": "never"<br>
+  }<br>
+}
+                        </div>
+                    </div>
+                    <div>
+                        <strong>💼 B2B (Conservative)</strong>
+                        <div class="json-code" style="margin-top: 10px;">
+{<br>
+  "frequency": {<br>
+    "maxImpressionsPerSession": 1,<br>
+    "maxImpressionsPerDay": 1,<br>
+    "cooldownAfterDismissal": 14,<br>
+    "cooldownAfterSubmission": "never"<br>
+  }<br>
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics & Tracking -->
+        <div class="category-section" id="analytics">
+            <h2>📊 Analytics & Tracking</h2>
+            <p>Comprehensive tracking configuration for performance measurement and optimization.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Track Impressions</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "trackImpressions": true<br>}</div></td>
+                        <td><div class="js-code">trackImpressions: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">true - Track all shows<br>false - No impression tracking</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Track Interactions</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "trackInteractions": true<br>}</div></td>
+                        <td><div class="js-code">trackInteractions: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Track clicks/hovers<br>false - Basic tracking only</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Analytics</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "googleAnalytics": {<br>    "enabled": true,<br>    "eventPrefix": "email_optin"<br>  }<br>}</div></td>
+                        <td><div class="js-code">gaEnabled: true</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">GA4 event tracking<br>Custom event naming<br>Enhanced ecommerce</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Facebook Pixel</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "facebookPixel": {<br>    "enabled": true,<br>    "pixelId": "123456789"<br>  }<br>}</div></td>
+                        <td><div class="js-code">fbPixelEnabled: true</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Lead tracking<br>Custom conversions<br>Audience building</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Events</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "customEvents": {<br>    "impression": "widget_shown",<br>    "conversion": "email_signup"<br>  }<br>}</div></td>
+                        <td><div class="js-code">customEventNames: {...}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Custom event naming<br>Platform-specific events<br>Advanced tracking</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📈 Enhanced Analytics Features</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Conversion Value</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "conversionValue": {<br>    "currency": "USD",<br>    "value": 15.00<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Assign monetary value to email signups</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Journey Tracking</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "userJourney": {<br>    "enabled": true,<br>    "trackPageSequence": true<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-advanced">Advanced</span></td>
+                        <td>Track user path to conversion</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Heat Map Integration</strong></td>
+                        <td><div class="json-code">"analytics": {<br>  "heatMap": {<br>    "enabled": true,<br>    "provider": "hotjar"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Visual user interaction tracking</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Platform Integrations -->
+        <div class="category-section" id="integrations">
+            <h2>🔗 Platform Integrations</h2>
+            <p>Connect with external services for form handling, email marketing, and CRM.</p>
+            
+            <h3>📧 OpnForm Integration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>OpnForm URL</strong></td>
+                        <td><div class="json-code">"opnForm": {<br>  "formUrl": "https://opnform.com/forms/abc123"<br>}</div></td>
+                        <td><div class="js-code">opnFormUrl: "https://opnform.com/forms/abc123"</div></td>
+                        <td><span class="data-type">String (URL)</span></td>
+                        <td><span class="usage-badge usage-required">Required</span></td>
+                        <td><div class="example-code">Campaign-specific form URLs<br>Different forms per page<br>A/B test forms</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Fields</strong></td>
+                        <td><div class="json-code">"opnForm": {<br>  "customFields": {<br>    "source": "widget",<br>    "campaign": "newsletter"<br>  }<br>}</div></td>
+                        <td><div class="js-code">customFields: {...}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Hidden form fields<br>Campaign tracking<br>Source attribution</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Validation Rules</strong></td>
+                        <td><div class="json-code">"opnForm": {<br>  "validation": {<br>    "emailRequired": true,<br>    "nameMinLength": 2<br>  }<br>}</div></td>
+                        <td><div class="js-code">validationRules: {...}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Email format validation<br>Required field rules<br>Custom validation</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📨 Email Platform Integration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Configuration Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mailchimp</strong></td>
+                        <td><div class="json-code">"integrations": {<br>  "mailchimp": {<br>    "enabled": true,<br>    "listId": "abc123",<br>    "tags": ["widget", "newsletter"]<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>List ID, tags, double opt-in settings</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ConvertKit</strong></td>
+                        <td><div class="json-code">"integrations": {<br>  "convertkit": {<br>    "enabled": true,<br>    "formId": "123456",<br>    "sequence": "welcome_series"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Form ID, automation sequences</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ActiveCampaign</strong></td>
+                        <td><div class="json-code">"integrations": {<br>  "activecampaign": {<br>    "enabled": true,<br>    "listId": "1",<br>    "automation": "widget_signup"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>List management, automation triggers</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🏢 CRM Integration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Configuration Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>HubSpot</strong></td>
+                        <td><div class="json-code">"integrations": {<br>  "hubspot": {<br>    "enabled": true,<br>    "portalId": "123456",<br>    "leadSource": "Website Widget"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Contact creation, lead scoring, properties</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Salesforce</strong></td>
+                        <td><div class="json-code">"integrations": {<br>  "salesforce": {<br>    "enabled": true,<br>    "leadSource": "Web Widget",<br>    "campaign": "Newsletter"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Lead creation, campaign association</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Targeting & Personalization -->
+        <div class="category-section" id="targeting">
+            <h2>🎯 Targeting & Personalization</h2>
+            <p>Advanced targeting rules and personalization features for different user segments.</p>
+            
+            <h3>📍 Page-Specific Targeting</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Page Rules</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "pageSpecific": {<br>    "/blog/*": {<br>      "content": {<br>        "headline": "📚 Love Our Content?"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"/blog/*" - Blog pages<br>"/products/*" - Product pages<br>"/pricing" - Pricing page</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>URL Parameters</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "urlParameters": {<br>    "utm_source=social": {<br>      "content": {<br>        "headline": "👥 Thanks for visiting!"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">UTM parameters<br>Campaign tracking<br>Source attribution</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exclude Pages</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "excludePages": [<br>    "/checkout/*",<br>    "/admin/*",<br>    "/thank-you"<br>  ]<br>}</div></td>
+                        <td><span class="data-type">Array</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">Checkout process<br>Admin areas<br>Thank you pages</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>👥 User Segmentation</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Traffic Source</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "trafficSource": {<br>    "social": {<br>      "display": {<br>        "triggerDelay": 3000<br>      }<br>    },<br>    "organic": {<br>      "content": {<br>        "headline": "🔍 Found us on Google?"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"social" - Social media<br>"organic" - Search<br>"direct" - Direct traffic<br>"email" - Email campaigns</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Type</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "userBehavior": {<br>    "new_visitor": {<br>      "content": {<br>        "headline": "👋 Welcome!"<br>      }<br>    },<br>    "returning_visitor": {<br>      "content": {<br>        "headline": "🔄 Welcome back!"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"new_visitor"<br>"returning_visitor"<br>"engaged_user"<br>"high_value_user"</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geographic Targeting</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "geographic": {<br>    "US": {<br>      "content": {<br>        "headline": "🇺🇸 For US Readers"<br>      }<br>    },<br>    "EU": {<br>      "content": {<br>        "privacyNote": "GDPR compliant"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Country codes<br>Region targeting<br>Language preferences</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🕒 Time-Based Targeting</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Time of Day</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "timeOfDay": {<br>    "business_hours": {<br>      "start": "09:00",<br>      "end": "17:00",<br>      "content": {<br>        "headline": "💼 Business Hours Special"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Business hours<br>Evening campaigns<br>Weekend specials</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Day of Week</strong></td>
+                        <td><div class="json-code">"targeting": {<br>  "dayOfWeek": {<br>    "weekday": {<br>      "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],<br>      "content": {<br>        "headline": "Weekday Productivity Tips"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Weekday vs weekend<br>Monday motivation<br>Friday offers</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="integration-example">
+                <h4>🎯 Advanced Targeting Example</h4>
+                <div class="json-code">
+{<br>
+  "targeting": {<br>
+    "pageSpecific": {<br>
+      "/blog/*": {<br>
+        "content": {<br>
+          "headline": "📚 Love Our Content?",<br>
+          "subheading": "Get more articles like this weekly"<br>
+        },<br>
+        "display": {<br>
+          "triggerDelay": 8000<br>
+        }<br>
+      },<br>
+      "/products/*": {<br>
+        "content": {<br>
+          "headline": "💰 Exclusive Product Deals",<br>
+          "subheading": "Be first to know about sales"<br>
+        },<br>
+        "display": {<br>
+          "triggerDelay": 5000<br>
+        }<br>
+      }<br>
+    },<br>
+    "trafficSource": {<br>
+      "social": {<br>
+        "content": {<br>
+          "headline": "👥 Thanks for the Social Visit!"<br>
+        },<br>
+        "display": {<br>
+          "triggerDelay": 3000<br>
+        }<br>
+      }<br>
+    },<br>
+    "userBehavior": {<br>
+      "new_visitor": {<br>
+        "content": {<br>
+          "socialProof": {<br>
+            "enabled": true,<br>
+            "message": "Join {{count}} new subscribers this week"<br>
+          }<br>
+        }<br>
+      }<br>
+    }<br>
+  }<br>
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Optimization -->
+        <div class="category-section" id="mobile">
+            <h2>📱 Mobile Optimization</h2>
+            <p>Mobile-specific configuration for optimal user experience on smaller screens.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mobile Enabled</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "enabled": true<br>}</div></td>
+                        <td><div class="js-code">mobileEnabled: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">true - Enable mobile optimization<br>false - Use desktop settings</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Trigger Delay</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "display": {<br>    "triggerDelay": 7000<br>  }<br>}</div></td>
+                        <td><div class="js-code">mobileTriggerDelay: 7000</div></td>
+                        <td><span class="data-type">Number (ms)</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">5000 - 5 seconds<br>7000 - 7 seconds<br>10000 - 10 seconds</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Auto-Hide</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "autoHide": {<br>    "delay": 20000<br>  }<br>}</div></td>
+                        <td><div class="js-code">mobileAutoHideDelay: 20000</div></td>
+                        <td><span class="data-type">Number (ms)</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">15000 - 15 seconds<br>20000 - 20 seconds<br>25000 - 25 seconds</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Dimensions</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "dimensions": {<br>    "width": "95%",<br>    "maxWidth": "350px"<br>  }<br>}</div></td>
+                        <td><div class="js-code">mobileWidth: "95%"</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">90% - More margin<br>95% - Standard<br>100% - Full width</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📲 Mobile-Specific Behavior</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Swipe to Close</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "behavior": {<br>    "swipeToClose": true,<br>    "swipeDirection": "down"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Allow swipe gestures to close widget</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Keyboard Aware</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "behavior": {<br>    "keyboardAware": true,<br>    "adjustForKeyboard": true<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Adjust position when keyboard appears</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Touch Optimization</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "behavior": {<br>    "touchOptimized": true,<br>    "minimumTouchTarget": "44px"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Ensure touch targets meet accessibility standards</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orientation Handling</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "behavior": {<br>    "handleOrientationChange": true,<br>    "repositionOnRotate": true<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Adapt to portrait/landscape changes</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎨 Mobile Styling Overrides</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mobile Typography</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "styling": {<br>    "typography": {<br>      "fontSize": "18px",<br>      "lineHeight": "1.4"<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Larger fonts for readability<br>Better line spacing<br>Touch-friendly sizing</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Button Sizing</strong></td>
+                        <td><div class="json-code">"mobile": {<br>  "styling": {<br>    "buttons": {<br>      "minHeight": "48px",<br>      "fontSize": "16px"<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">Minimum 44-48px height<br>Clear, readable text<br>Easy to tap accurately</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="warning-box">
+                <strong>📱 Mobile Best Practices:</strong> Always test on real devices. Mobile users have shorter attention spans, so reduce trigger delays and auto-hide timers by 20-30% compared to desktop.
+            </div>
+        </div>
+
+        <!-- A/B Testing & Variants -->
+        <div class="category-section" id="testing">
+            <h2>🧪 A/B Testing & Variants</h2>
+            <p>Configure multiple variants for testing different approaches and optimizing performance.</p>
+            
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>JavaScript Implementation</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Variants Enabled</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "enabled": true<br>}</div></td>
+                        <td><div class="js-code">variantsEnabled: true</div></td>
+                        <td><span class="data-type">Boolean</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">true - Enable A/B testing<br>false - Single version only</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Traffic Allocation</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "trafficAllocation": {<br>    "control": 50,<br>    "variant_a": 25,<br>    "variant_b": 25<br>  }<br>}</div></td>
+                        <td><div class="js-code">trafficSplit: {...}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-required">Required (if testing)</span></td>
+                        <td><div class="example-code">50/50 split<br>70/30 split<br>33/33/34 three-way</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Variant Assignment</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "assignmentMethod": "random",<br>  "stickyAssignment": true<br>}</div></td>
+                        <td><div class="js-code">assignmentMethod: "random"</div></td>
+                        <td><span class="data-type">String</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td><div class="example-code">"random" - Random assignment<br>"deterministic" - Based on user ID</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🎯 Test Variants Configuration</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Test Type</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Content Testing</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "tests": {<br>    "urgent_headline": {<br>      "weight": 50,<br>      "content": {<br>        "headline": "⏰ Last Chance!",<br>        "subheading": "Don't miss out!"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Test different headlines, copy, messaging</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Design Testing</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "tests": {<br>    "red_button": {<br>      "weight": 50,<br>      "styling": {<br>        "colors": {<br>          "primary": "#dc3545"<br>        }<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Test colors, layouts, visual elements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timing Testing</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "tests": {<br>    "quick_popup": {<br>      "weight": 50,<br>      "display": {<br>        "triggerDelay": 2000<br>      },<br>      "autoHide": {<br>        "delay": 15000<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Test different timing strategies</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incentive Testing</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "tests": {<br>    "discount_offer": {<br>      "weight": 50,<br>      "content": {<br>        "headline": "🎁 Get 10% Off!",<br>        "buttonText": "Claim Discount"<br>      }<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Test different value propositions</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>📊 Test Analytics & Tracking</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Test Tracking</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "analytics": {<br>    "trackAssignment": true,<br>    "trackPerformance": true,<br>    "customDimensions": {<br>      "variant": "custom_dimension_1"<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-required">Required (if testing)</span></td>
+                        <td>Track variant performance and assignment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Statistical Significance</strong></td>
+                        <td><div class="json-code">"variants": {<br>  "testing": {<br>    "minimumSampleSize": 1000,<br>    "confidenceLevel": 95,<br>    "testDuration": "2 weeks"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Ensure reliable test results</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="integration-example">
+                <h4>🧪 Complete A/B Test Example</h4>
+                <div class="json-code">
+{<br>
+  "variants": {<br>
+    "enabled": true,<br>
+    "assignmentMethod": "random",<br>
+    "stickyAssignment": true,<br>
+    "trafficAllocation": {<br>
+      "control": 33,<br>
+      "urgent_variant": 33,<br>
+      "incentive_variant": 34<br>
+    },<br>
+    "tests": {<br>
+      "urgent_variant": {<br>
+        "content": {<br>
+          "headline": "⏰ Last Chance!",<br>
+          "subheading": "Only 24 hours left to join",<br>
+          "buttonText": "Join Now"<br>
+        },<br>
+        "styling": {<br>
+          "colors": {<br>
+            "primary": "#dc3545"<br>
+          }<br>
+        },<br>
+        "display": {<br>
+          "triggerDelay": 3000<br>
+        }<br>
+      },<br>
+      "incentive_variant": {<br>
+        "content": {<br>
+          "headline": "🎁 Get Your Free Guide",<br>
+          "subheading": "Plus weekly tips & exclusive content",<br>
+          "buttonText": "Get Free Guide"<br>
+        },<br>
+        "styling": {<br>
+          "colors": {<br>
+            "primary": "#28a745"<br>
+          }<br>
+        }<br>
+      }<br>
+    },<br>
+    "analytics": {<br>
+      "trackAssignment": true,<br>
+      "trackPerformance": true,<br>
+      "customDimensions": {<br>
+        "variant": "custom_dimension_1",<br>
+        "test_name": "custom_dimension_2"<br>
+      }<br>
+    }<br>
+  }<br>
+}
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Configuration -->
+        <div class="category-section" id="advanced">
+            <h2>⚙️ Advanced Configuration</h2>
+            <p>Advanced features for complex use cases and enterprise implementations.</p>
+            
+            <h3>🔒 Security & Privacy</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GDPR Compliance</strong></td>
+                        <td><div class="json-code">"privacy": {<br>  "gdprCompliant": true,<br>  "consentRequired": true,<br>  "consentText": "I agree to receive emails"<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-required">Required (EU)</span></td>
+                        <td><div class="example-code">Consent checkboxes<br>Privacy policy links<br>Data processing notices</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Content Security Policy</strong></td>
+                        <td><div class="json-code">"security": {<br>  "cspCompliant": true,<br>  "nonce": "{{csp_nonce}}",<br>  "trustedDomains": ["opnform.com"]<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">CSP nonce support<br>Trusted domain lists<br>Inline script restrictions</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rate Limiting</strong></td>
+                        <td><div class="json-code">"security": {<br>  "rateLimiting": {<br>    "enabled": true,<br>    "maxSubmissionsPerMinute": 5<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Prevent spam submissions<br>Bot protection<br>Resource management</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🔧 Performance Optimization</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lazy Loading</strong></td>
+                        <td><div class="json-code">"performance": {<br>  "lazyLoad": {<br>    "enabled": true,<br>    "loadOnInteraction": true<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-recommended">Recommended</span></td>
+                        <td>Load widget code only when needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resource Optimization</strong></td>
+                        <td><div class="json-code">"performance": {<br>  "optimization": {<br>    "minifyConfig": true,<br>    "compressImages": true,<br>    "prefetchForms": false<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Optimize loading and rendering performance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caching Strategy</strong></td>
+                        <td><div class="json-code">"performance": {<br>  "caching": {<br>    "configCacheTTL": 3600,<br>    "assetCacheTTL": 86400<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td>Control caching behavior for config and assets</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🌐 Multi-language & Localization</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Example Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Language Detection</strong></td>
+                        <td><div class="json-code">"localization": {<br>  "autoDetect": true,<br>  "fallbackLanguage": "en",<br>  "supportedLanguages": ["en", "es", "fr"]<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Browser language detection<br>Geographic detection<br>User preference storage</div></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-language Content</strong></td>
+                        <td><div class="json-code">"content": {<br>  "localized": {<br>    "en": {<br>      "headline": "Stay Updated!",<br>      "buttonText": "Subscribe"<br>    },<br>    "es": {<br>      "headline": "¡Mantente Actualizado!",<br>      "buttonText": "Suscribirse"<br>    }<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-optional">Optional</span></td>
+                        <td><div class="example-code">Multiple language versions<br>Cultural adaptations<br>Regional preferences</div></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🔌 Custom Extensions</h3>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>JSON Configuration</th>
+                        <th>Data Type</th>
+                        <th>Usage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Custom Scripts</strong></td>
+                        <td><div class="json-code">"extensions": {<br>  "customScripts": {<br>    "beforeShow": "window.customPreShow()",<br>    "afterSubmit": "window.customPostSubmit()"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-advanced">Advanced</span></td>
+                        <td>Hook into widget lifecycle events</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom CSS</strong></td>
+                        <td><div class="json-code">"extensions": {<br>  "customCSS": {<br>    "inlineStyles": ".custom-widget { ... }",<br>    "externalStylesheet": "/css/widget-custom.css"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-advanced">Advanced</span></td>
+                        <td>Override default styling completely</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API Webhooks</strong></td>
+                        <td><div class="json-code">"extensions": {<br>  "webhooks": {<br>    "onConversion": "https://api.company.com/webhook",<br>    "onDismiss": "https://api.company.com/webhook"<br>  }<br>}</div></td>
+                        <td><span class="data-type">Object</span></td>
+                        <td><span class="usage-badge usage-advanced">Advanced</span></td>
+                        <td>Real-time event notifications to external systems</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="success-box">
+                <strong>🚀 Enterprise Features:</strong> Advanced configurations enable complex enterprise use cases including multi-tenant deployments, custom integrations, and sophisticated analytics tracking.
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+            <h3 style="margin-top: 0; color: white;">🎯 Configuration Best Practices</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                <div>
+                    <h4>✅ Always Include</h4>
+                    <ul>
+                        <li>Campaign identification</li>
+                        <li>Display timing controls</li>
+                        <li>Frequency limits</li>
+                        <li>Analytics tracking</li>
+                        <li>Manual close options</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🎨 Consider Adding</h4>
+                    <ul>
+                        <li>Mobile optimization</li>
+                        <li>A/B testing variants</li>
+                        <li>Page-specific targeting</li>
+                        <li>Success messaging</li>
+                        <li>Social proof elements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                <h4 style="margin: 0 0 10px 0; color: white;">📋 Configuration Validation Checklist</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>Required Fields:</strong>
+                        <ul style="margin: 5px 0; font-size: 0.9em;">
+                            <li>✅ campaign.name and campaign.id</li>
+                            <li>✅ display.mode and display.triggerDelay</li>
+                            <li>✅ opnForm.formUrl</li>
+                            <li>✅ frequency limits</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Performance Optimization:</strong>
+                        <ul style="margin: 5px 0; font-size: 0.9em;">
+                            <li>✅ Mobile-specific settings</li>
+                            <li>✅ Auto-close timing</li>
+                            <li>✅ Analytics configuration</li>
+                            <li>✅ Targeting rules</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
