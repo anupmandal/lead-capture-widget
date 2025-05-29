@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Opt-in Widget Configuration Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+        
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 0.85em;
+        }
+        
+        .config-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .config-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        
+        .config-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .parameter-name {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        
+        .required {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        
+        .optional {
+            background: #95a5a6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        
+        .default-value {
+            background: #3498db;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+        }
+        
+        .suggested-value {
+            background: #27ae60;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .use-case {
+            font-weight: bold;
+            color: #8e44ad;
+        }
+        
+        .description {
+            line-height: 1.4;
+        }
+        
+        .type-indicator {
+            background: #f39c12;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+        .business-impact {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .category-intro {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .nested-parameter {
+            padding-left: 20px;
+            border-left: 2px solid #bdc3c7;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 8px;
+            color: #856404;
+            font-size: 0.85em;
+        }
+        
+        .tip {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 8px;
+            color: #155724;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Email Opt-in Widget Configuration Documentation</h1>
+        
+        <div class="category-intro">
+            <strong>📋 How to Use This Documentation:</strong><br>
+            • <span class="required">REQUIRED</span> parameters must be configured<br>
+            • <span class="optional">OPTIONAL</span> parameters have sensible defaults<br>
+            • <span class="default-value">Default Values</span> are applied automatically<br>
+            • <span class="suggested-value">Suggested Values</span> are recommended for specific use cases
+        </div>
+
+        <h2>🏷️ Campaign Management</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Define campaign identity, lifecycle, and metadata for tracking and organization.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">campaign.name</span></td>
+                    <td class="description">Human-readable campaign name for identification</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">E-commerce:</span> <span class="suggested-value">"Black Friday 2024"</span><br>
+                        <span class="use-case">B2B:</span> <span class="suggested-value">"Weekly Industry Newsletter"</span><br>
+                        <span class="use-case">Lead Magnet:</span> <span class="suggested-value">"Free Marketing Guide"</span>
+                    </td>
+                    <td class="business-impact">Used in analytics, reporting, and team communication</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">campaign.id</span></td>
+                    <td class="description">Unique identifier for technical tracking</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="suggested-value">snake_case</span> format:<br>
+                        <span class="suggested-value">"holiday_newsletter_2024"</span><br>
+                        <span class="suggested-value">"lead_magnet_guide"</span>
+                    </td>
+                    <td class="business-impact">Must be unique across all campaigns</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">campaign.status</span></td>
+                    <td class="description">Current campaign state</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">active</span></td>
+                    <td>
+                        <span class="suggested-value">active</span> - Live campaign<br>
+                        <span class="suggested-value">paused</span> - Temporarily disabled<br>
+                        <span class="suggested-value">draft</span> - In development<br>
+                        <span class="suggested-value">archived</span> - Completed
+                    </td>
+                    <td class="business-impact">Controls widget visibility globally</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">campaign.priority</span></td>
+                    <td class="description">Campaign importance for multi-campaign coordination</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">medium</span></td>
+                    <td>
+                        <span class="use-case">High Value:</span> <span class="suggested-value">high</span><br>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">medium</span><br>
+                        <span class="use-case">Background:</span> <span class="suggested-value">low</span>
+                    </td>
+                    <td class="business-impact">Determines precedence when multiple campaigns compete</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">campaign.version</span></td>
+                    <td class="description">Configuration version for change tracking</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">1.0.0</span></td>
+                    <td>
+                        <span class="suggested-value">Semantic versioning:</span><br>
+                        <span class="suggested-value">"1.0.0"</span> - Initial<br>
+                        <span class="suggested-value">"1.1.0"</span> - Feature update<br>
+                        <span class="suggested-value">"1.0.1"</span> - Bug fix
+                    </td>
+                    <td class="business-impact">Helps track changes and rollbacks</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⏰ Display Behavior & Timing</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Control when, how, and how often the widget appears to users.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">display.mode</span></td>
+                    <td class="description">How the widget appears on screen</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">slide</span><br>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">slide</span><br>
+                        <span class="use-case">Tablet:</span> <span class="suggested-value">popup</span>
+                    </td>
+                    <td class="business-impact">Affects user experience and conversion rates</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.slideDirection</span></td>
+                    <td class="description">Direction widget slides from (when mode=slide)</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">right</span></td>
+                    <td>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">right</span> | <span class="suggested-value">left</span><br>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">bottom</span><br>
+                        <span class="use-case">Avoid:</span> <span class="suggested-value">top</span>
+                    </td>
+                    <td class="business-impact">Different directions have varying attention and UX impact</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.triggerDelay</span></td>
+                    <td class="description">Milliseconds to wait before showing widget</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">5000</span></td>
+                    <td>
+                        <span class="use-case">Exit Intent:</span> <span class="suggested-value">2000</span><br>
+                        <span class="use-case">Engagement:</span> <span class="suggested-value">5000</span><br>
+                        <span class="use-case">Reading Time:</span> <span class="suggested-value">10000</span>
+                    </td>
+                    <td class="business-impact">Too early = annoying, too late = missed opportunity</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.frequency.maxImpressionsPerSession</span></td>
+                    <td class="description">Maximum times to show per browser session</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">1</span></td>
+                    <td>
+                        <span class="use-case">Conservative:</span> <span class="suggested-value">1</span><br>
+                        <span class="use-case">Aggressive:</span> <span class="suggested-value">2</span><br>
+                        <span class="use-case">Testing:</span> <span class="suggested-value">3</span>
+                    </td>
+                    <td class="business-impact">Prevents user annoyance while maximizing chances</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.frequency.cooldownAfterDismissal</span></td>
+                    <td class="description">Days to wait after user closes without subscribing</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">7</span></td>
+                    <td>
+                        <span class="use-case">Respectful:</span> <span class="suggested-value">7</span><br>
+                        <span class="use-case">Persistent:</span> <span class="suggested-value">3</span><br>
+                        <span class="use-case">Gentle:</span> <span class="suggested-value">14</span>
+                    </td>
+                    <td class="business-impact">Balance between persistence and user respect</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.autoHide.enabled</span></td>
+                    <td class="description">Whether widget auto-closes after inactivity</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Persistent:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Prevents widget from staying open indefinitely</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.autoHide.delay</span></td>
+                    <td class="description">Milliseconds of inactivity before auto-close</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">30000</span></td>
+                    <td>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">20000</span><br>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">45000</span><br>
+                        <span class="use-case">Reading Content:</span> <span class="suggested-value">60000</span>
+                    </td>
+                    <td class="business-impact">Shorter on mobile due to attention spans</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.closeAfterSubmission.enabled</span></td>
+                    <td class="description">Auto-close widget after successful subscription</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Keep Open:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Clean UX after conversion</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">display.closeAfterSubmission.delay</span></td>
+                    <td class="description">Milliseconds to show success message before closing</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">3000</span></td>
+                    <td>
+                        <span class="use-case">Quick:</span> <span class="suggested-value">2000</span><br>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">3000</span><br>
+                        <span class="use-case">Read Time:</span> <span class="suggested-value">5000</span>
+                    </td>
+                    <td class="business-impact">Time for user to see confirmation</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📱 Responsive Configuration</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Optimize widget behavior across different screen sizes and device capabilities.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">responsive.enabled</span></td>
+                    <td class="description">Enable responsive behavior across devices</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Modern Sites:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Desktop Only:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Essential for mobile traffic (60%+ of users)</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">responsive.breakpoints.mobile.maxWidth</span></td>
+                    <td class="description">Maximum width for mobile treatment (pixels)</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">768px</span></td>
+                    <td>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">"768px"</span><br>
+                        <span class="use-case">Large Mobile:</span> <span class="suggested-value">"834px"</span><br>
+                        <span class="use-case">Small Mobile:</span> <span class="suggested-value">"480px"</span>
+                    </td>
+                    <td class="business-impact">Defines mobile vs tablet experience boundary</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">responsive.breakpoints.mobile.display.slideDirection</span></td>
+                    <td class="description">Slide direction specifically for mobile devices</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">bottom</span></td>
+                    <td>
+                        <span class="use-case">Recommended:</span> <span class="suggested-value">bottom</span><br>
+                        <span class="use-case">Alternative:</span> <span class="suggested-value">top</span><br>
+                        <span class="use-case">Avoid:</span> left/right (too narrow)
+                    </td>
+                    <td class="business-impact">Bottom slides work best with thumb navigation</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">responsive.breakpoints.mobile.behavior.swipeToClose</span></td>
+                    <td class="description">Enable swipe gestures to close on mobile</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Natural mobile interaction pattern</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">responsive.orientationAware.enabled</span></td>
+                    <td class="description">Adapt to device orientation changes</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Tablets:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Mobile:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Desktop:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Improves experience on rotatable devices</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">responsive.performanceOptimization.enabled</span></td>
+                    <td class="description">Adapt behavior based on device/connection capabilities</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Global Sites:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Fast Networks:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Better experience on slow connections/devices</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>💬 Content & Messaging</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Define all user-visible text, messaging, and personalization options.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">content.headline</span></td>
+                    <td class="description">Primary headline that grabs attention</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">E-commerce:</span> <span class="suggested-value">"🎁 Exclusive Deals Inside!"</span><br>
+                        <span class="use-case">B2B:</span> <span class="suggested-value">"📊 Industry Insights Weekly"</span><br>
+                        <span class="use-case">Urgency:</span> <span class="suggested-value">"⏰ Limited Time Offer"</span>
+                    </td>
+                    <td class="business-impact">Primary driver of conversion - test extensively</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.subheading</span></td>
+                    <td class="description">Supporting text that explains value proposition</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">""</span></td>
+                    <td>
+                        <span class="use-case">Benefits:</span> <span class="suggested-value">"Save up to 50% + free shipping"</span><br>
+                        <span class="use-case">Frequency:</span> <span class="suggested-value">"Weekly tips in your inbox"</span>
+                    </td>
+                    <td class="business-impact">Clarifies value and reduces hesitation</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.callToAction.primary</span></td>
+                    <td class="description">Text for main subscribe button</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Action-oriented:</span> <span class="suggested-value">"Get Deals Now"</span><br>
+                        <span class="use-case">Value-focused:</span> <span class="suggested-value">"Start Saving"</span><br>
+                        <span class="use-case">Exclusive:</span> <span class="suggested-value">"Join VIP List"</span>
+                    </td>
+                    <td class="business-impact">Button text significantly affects conversion</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.socialProof.enabled</span></td>
+                    <td class="description">Show subscriber count and testimonials</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">High Subscribers:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Low Subscribers:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">New Brand:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Can increase trust but backfire if numbers are low</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.socialProof.message</span></td>
+                    <td class="description">Template for subscriber count display</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">"Join {{count}} subscribers"</span></td>
+                    <td>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">"Join {{count}} subscribers"</span><br>
+                        <span class="use-case">Emotional:</span> <span class="suggested-value">"{{count}} people love our deals"</span><br>
+                        <span class="use-case">Active:</span> <span class="suggested-value">"{{count}} smart shoppers"</span>
+                    </td>
+                    <td class="business-impact">{{count}} replaced with actual subscriber number</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.urgency.enabled</span></td>
+                    <td class="description">Display time-sensitive messaging</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">Sales/Promos:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Evergreen:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">Limited Time:</span> <span class="suggested-value">true</span>
+                    </td>
+                    <td class="business-impact">Can boost conversions but must be authentic</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.loggedInUser.enabled</span></td>
+                    <td class="description">Pre-populate email for logged-in users</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">Member Sites:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">E-commerce:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Anonymous:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">50-80% higher conversion for logged-in users</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">content.loggedInUser.personalizedHeadline</span></td>
+                    <td class="description">Custom headline template for logged-in users</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">"Hi {{firstName}}!"</span></td>
+                    <td>
+                        <span class="use-case">Personal:</span> <span class="suggested-value">"Hi {{firstName}}! 👋"</span><br>
+                        <span class="use-case">Exclusive:</span> <span class="suggested-value">"{{firstName}}, VIP deals for you"</span><br>
+                        <span class="use-case">Casual:</span> <span class="suggested-value">"Hey {{firstName}} 😊"</span>
+                    </td>
+                    <td class="business-impact">{{firstName}} replaced with user's actual name</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🎨 Visual Design & Styling</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Control visual appearance, colors, typography, and animations to match brand.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">styling.theme</span></td>
+                    <td class="description">Pre-built theme name for quick styling</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">default</span></td>
+                    <td>
+                        <span class="use-case">Seasonal:</span> <span class="suggested-value">holiday</span>, <span class="suggested-value">summer</span><br>
+                        <span class="use-case">Business:</span> <span class="suggested-value">professional</span>, <span class="suggested-value">minimal</span><br>
+                        <span class="use-case">Creative:</span> <span class="suggested-value">vibrant</span>, <span class="suggested-value">modern</span>
+                    </td>
+                    <td class="business-impact">Themes override individual color settings</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">styling.colors.primary</span></td>
+                    <td class="description">Primary brand color (hex, rgb, or named)</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">#3498db</span></td>
+                    <td>
+                        <span class="use-case">Trust:</span> <span class="suggested-value">#3498db</span> (blue)<br>
+                        <span class="use-case">Energy:</span> <span class="suggested-value">#e74c3c</span> (red)<br>
+                        <span class="use-case">Growth:</span> <span class="suggested-value">#27ae60</span> (green)<br>
+                        <span class="use-case">Premium:</span> <span class="suggested-value">#8e44ad</span> (purple)
+                    </td>
+                    <td class="business-impact">Should match brand for consistency</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">styling.colors.background</span></td>
+                    <td class="description">Widget background color</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">#ffffff</span></td>
+                    <td>
+                        <span class="use-case">Light Mode:</span> <span class="suggested-value">#ffffff</span><br>
+                        <span class="use-case">Dark Mode:</span> <span class="suggested-value">#2c3e50</span><br>
+                        <span class="use-case">Warm:</span> <span class="suggested-value">#fefefe</span>
+                    </td>
+                    <td class="business-impact">Must provide sufficient contrast with text</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">styling.typography.fontFamily</span></td>
+                    <td class="description">Font family for all text</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">system-ui, sans-serif</span></td>
+                    <td>
+                        <span class="use-case">Modern:</span> <span class="suggested-value">Inter, system-ui</span><br>
+                        <span class="use-case">Classic:</span> <span class="suggested-value">Georgia, serif</span><br>
+                        <span class="use-case">Tech:</span> <span class="suggested-value">Roboto, sans-serif</span>
+                    </td>
+                    <td class="business-impact">Should match site's typography</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">styling.design.borderRadius</span></td>
+                    <td class="description">Corner roundness in pixels</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">8</span></td>
+                    <td>
+                        <span class="use-case">Sharp:</span> <span class="suggested-value">0</span><br>
+                        <span class="use-case">Subtle:</span> <span class="suggested-value">4</span><br>
+                        <span class="use-case">Modern:</span> <span class="suggested-value">12</span><br>
+                        <span class="use-case">Rounded:</span> <span class="suggested-value">20</span>
+                    </td>
+                    <td class="business-impact">Affects perceived modernity</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">styling.animations.enabled</span></td>
+                    <td class="description">Enable/disable all animations</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Modern UX:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Performance:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">Accessibility:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Animations improve perceived performance</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">dimensions.maxWidth</span></td>
+                    <td class="description">Maximum widget width</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">500px</span></td>
+                    <td>
+                        <span class="use-case">Compact:</span> <span class="suggested-value">400px</span><br>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">500px</span><br>
+                        <span class="use-case">Wide:</span> <span class="suggested-value">600px</span><br>
+                        <span class="use-case">Full:</span> <span class="suggested-value">90%</span>
+                    </td>
+                    <td class="business-impact">Wider allows more content but may feel intrusive</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🎯 Targeting & Personalization</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Show different content and behavior based on user context, location, and behavior.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">targeting.enabled</span></td>
+                    <td class="description">Enable smart targeting features</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">Advanced:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Simple:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Enables all page-specific and user-based targeting</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">targeting.pageSpecific</span></td>
+                    <td class="description">Different content/behavior per page pattern</td>
+                    <td><span class="type-indicator">Object</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">{}</span></td>
+                    <td>
+                        <span class="use-case">E-commerce:</span><br>
+                        <span class="suggested-value">"/products/*": {"content": {"headline": "Product Deals"}}</span><br>
+                        <span class="suggested-value">"/cart": {"display": {"triggerDelay": 5000}}</span>
+                    </td>
+                    <td class="business-impact">Highly relevant messaging increases conversion</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">targeting.userBehavior.new_visitor</span></td>
+                    <td class="description">Special treatment for first-time visitors</td>
+                    <td><span class="type-indicator">Object</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">{}</span></td>
+                    <td>
+                        <span class="use-case">Welcome:</span><br>
+                        <span class="suggested-value">{"content": {"headline": "👋 Welcome! New here?"}}</span><br>
+                        <span class="suggested-value">{"display": {"triggerDelay": 10000}}</span>
+                    </td>
+                    <td class="business-impact">First impression is critical for new visitors</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">targeting.userBehavior.returning_visitor</span></td>
+                    <td class="description">Different approach for repeat visitors</td>
+                    <td><span class="type-indicator">Object</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">{}</span></td>
+                    <td>
+                        <span class="use-case">Loyalty:</span><br>
+                        <span class="suggested-value">{"content": {"headline": "Welcome back! 🔄"}}</span><br>
+                        <span class="suggested-value">{"display": {"triggerDelay": 5000}}</span>
+                    </td>
+                    <td class="business-impact">Returning visitors are more likely to convert</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">targeting.trafficSource.organic</span></td>
+                    <td class="description">Behavior for organic search traffic</td>
+                    <td><span class="type-indicator">Object</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">{}</span></td>
+                    <td>
+                        <span class="use-case">Search Intent:</span><br>
+                        <span class="suggested-value">{"display": {"triggerDelay": 8000}}</span><br>
+                        <span class="suggested-value">{"content": {"headline": "Found what you need?"}}</span>
+                    </td>
+                    <td class="business-impact">Search users are research-oriented</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">targeting.trafficSource.social</span></td>
+                    <td class="description">Special handling for social media traffic</td>
+                    <td><span class="type-indicator">Object</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">{}</span></td>
+                    <td>
+                        <span class="use-case">Social Proof:</span><br>
+                        <span class="suggested-value">{"content": {"headline": "👥 Thanks for the social visit!"}}</span><br>
+                        <span class="suggested-value">{"display": {"triggerDelay": 3000}}</span>
+                    </td>
+                    <td class="business-impact">Social visitors expect community feel</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🧪 A/B Testing</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Test different variations to optimize conversion rates through data-driven decisions.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">variants.enabled</span></td>
+                    <td class="description">Enable A/B testing functionality</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">Optimization:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Stable:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">A/B testing can improve conversion 20-50%</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">variants.strategy</span></td>
+                    <td class="description">How to split traffic between variants</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">equal_split</span></td>
+                    <td>
+                        <span class="use-case">Standard:</span> <span class="suggested-value">equal_split</span><br>
+                        <span class="use-case">Weighted:</span> <span class="suggested-value">weighted</span><br>
+                        <span class="use-case">Winner:</span> <span class="suggested-value">champion_challenger</span>
+                    </td>
+                    <td class="business-impact">Equal split gives fastest statistical significance</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">variants.tests.{variant_name}.weight</span></td>
+                    <td class="description">Percentage of traffic for this variant (0-100)</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Equal (2 variants):</span> <span class="suggested-value">50</span><br>
+                        <span class="use-case">Equal (3 variants):</span> <span class="suggested-value">33</span><br>
+                        <span class="use-case">Weighted:</span> <span class="suggested-value">70</span> vs <span class="suggested-value">30</span>
+                    </td>
+                    <td class="business-impact">All variant weights must sum to 100</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">variants.tests.{variant_name}.content.headline</span></td>
+                    <td class="description">Alternative headline to test</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Urgency Test:</span><br>
+                        Control: <span class="suggested-value">"Join Our Newsletter"</span><br>
+                        Variant: <span class="suggested-value">"⏰ Last Chance to Subscribe"</span>
+                    </td>
+                    <td class="business-impact">Headlines have the highest impact on conversion</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">variants.persistUserVariant</span></td>
+                    <td class="description">Show same variant to returning users</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Consistent UX:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Fresh Test:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Consistency reduces confusion for returning users</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📊 Analytics & Tracking</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Measure performance, track user behavior, and integrate with analytics platforms.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">analytics.enabled</span></td>
+                    <td class="description">Enable all analytics tracking</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Production:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Privacy-focused:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">Testing:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Essential for optimization and ROI measurement</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.trackImpressions</span></td>
+                    <td class="description">Track when widget is shown to users</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Full Funnel:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Conversions Only:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Needed to calculate conversion rates</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.trackConversions</span></td>
+                    <td class="description">Track successful email subscriptions</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Always:</span> <span class="suggested-value">true</span>
+                    </td>
+                    <td class="business-impact">Core metric for measuring success</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.googleAnalytics.enabled</span></td>
+                    <td class="description">Send events to Google Analytics</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">GA4 Users:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Other Analytics:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Integrates with existing GA4 setup</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.googleAnalytics.measurementId</span></td>
+                    <td class="description">GA4 Measurement ID (G-XXXXXXXXXX)</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Format:</span> <span class="suggested-value">"G-XXXXXXXXXX"</span><br>
+                        Example: <span class="suggested-value">"G-ABC123DEF4"</span>
+                    </td>
+                    <td class="business-impact">Required if Google Analytics enabled</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.googleSheetsUrl</span></td>
+                    <td class="description">Google Apps Script URL for data export</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Simple Tracking:</span><br>
+                        <span class="suggested-value">"https://script.google.com/macros/s/YOUR_ID/exec"</span>
+                    </td>
+                    <td class="business-impact">Easy way to collect data in spreadsheet</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.sendToDataLayer</span></td>
+                    <td class="description">Send events to GTM dataLayer</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">GTM Users:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Direct Analytics:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Enables GTM-based analytics and remarketing</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">analytics.goals.targetConversionRate</span></td>
+                    <td class="description">Target conversion rate (0.01 = 1%)</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">0.03</span></td>
+                    <td>
+                        <span class="use-case">Conservative:</span> <span class="suggested-value">0.02</span> (2%)<br>
+                        <span class="use-case">Realistic:</span> <span class="suggested-value">0.05</span> (5%)<br>
+                        <span class="use-case">Optimistic:</span> <span class="suggested-value">0.10</span> (10%)
+                    </td>
+                    <td class="business-impact">Used for performance alerts and optimization</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔌 Integrations</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Connect with email marketing platforms, CRMs, and other business tools.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">integrations.opnForm.formId</span></td>
+                    <td class="description">OpnForm form identifier</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Format:</span> <span class="suggested-value">"your-form-id-123"</span><br>
+                        From OpnForm dashboard
+                    </td>
+                    <td class="business-impact">Core form functionality depends on this</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">integrations.opnForm.baseUrl</span></td>
+                    <td class="description">OpnForm instance URL</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="required">REQUIRED</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="use-case">Hosted:</span> <span class="suggested-value">"https://opnform.duckdns.org"</span><br>
+                        <span class="use-case">Self-hosted:</span> <span class="suggested-value">"https://forms.yoursite.com"</span>
+                    </td>
+                    <td class="business-impact">Must be accessible from user browsers</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">integrations.emailMarketing.platform</span></td>
+                    <td class="description">Email marketing service provider</td>
+                    <td><span class="type-indicator">Enum</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="suggested-value">mailchimp</span><br>
+                        <span class="suggested-value">convertkit</span><br>
+                        <span class="suggested-value">hubspot</span><br>
+                        <span class="suggested-value">activecompaign</span>
+                    </td>
+                    <td class="business-impact">Enables automatic list management</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">integrations.emailMarketing.doubleOptIn</span></td>
+                    <td class="description">Require email confirmation before subscribing</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">High Quality:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Fast Growth:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">GDPR:</span> <span class="suggested-value">true</span>
+                    </td>
+                    <td class="business-impact">Higher quality subscribers but lower conversion</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">integrations.crm.enabled</span></td>
+                    <td class="description">Send subscriber data to CRM</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">B2B:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">E-commerce:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Simple Newsletter:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Enables lead nurturing and sales follow-up</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">integrations.crm.leadSource</span></td>
+                    <td class="description">Source attribution for CRM leads</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">website_popup</span></td>
+                    <td>
+                        <span class="use-case">Attribution:</span><br>
+                        <span class="suggested-value">"website_popup"</span><br>
+                        <span class="suggested-value">"email_opt_in_widget"</span><br>
+                        <span class="suggested-value">"homepage_signup"</span>
+                    </td>
+                    <td class="business-impact">Helps track lead source effectiveness</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔒 Compliance & Security</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Ensure privacy compliance (GDPR, CCPA) and accessibility standards (WCAG).
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">compliance.gdpr.enabled</span></td>
+                    <td class="description">Enable GDPR compliance features</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">EU Traffic:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">US Only:</span> <span class="suggested-value">false</span><br>
+                        <span class="use-case">Global:</span> <span class="suggested-value">true</span>
+                    </td>
+                    <td class="business-impact">Required for EU users, good practice globally</td>
+                </tr>
+                <tr>
+                    <td class="warning" colspan="7">
+                        ⚠️ <strong>Legal Notice:</strong> GDPR compliance is complex. Consult legal counsel for proper implementation.
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">compliance.gdpr.consentRequired</span></td>
+                    <td class="description">Require explicit consent checkbox</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">GDPR Required:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Implied Consent:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Explicit consent reduces conversion but ensures compliance</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">compliance.accessibility.wcagCompliant</span></td>
+                    <td class="description">Meet WCAG accessibility standards</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Public Sites:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Enterprise:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Internal:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Legal requirement in many jurisdictions</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">compliance.accessibility.keyboardNavigation</span></td>
+                    <td class="description">Enable keyboard-only navigation</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Accessibility:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Basic:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Essential for users with mobility impairments</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⚙️ Technical Configuration</h2>
+        <div class="category-intro">
+            <strong>Purpose:</strong> Performance optimization, browser compatibility, and technical requirements.
+        </div>
+        
+        <table class="config-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Default</th>
+                    <th>Suggested Values</th>
+                    <th>Business Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="parameter-name">technical.performance.lazyLoad</span></td>
+                    <td class="description">Load widget code only when needed</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">true</span></td>
+                    <td>
+                        <span class="use-case">Performance:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Immediate:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Improves page load speed</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">technical.performance.loadTimeout</span></td>
+                    <td class="description">Milliseconds to wait for widget to load</td>
+                    <td><span class="type-indicator">Number</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">5000</span></td>
+                    <td>
+                        <span class="use-case">Fast Networks:</span> <span class="suggested-value">3000</span><br>
+                        <span class="use-case">Global:</span> <span class="suggested-value">5000</span><br>
+                        <span class="use-case">Slow Networks:</span> <span class="suggested-value">8000</span>
+                    </td>
+                    <td class="business-impact">Prevents indefinite loading states</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">technical.debugging.enabled</span></td>
+                    <td class="description">Enable debug logging and error reporting</td>
+                    <td><span class="type-indicator">Boolean</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">false</span></td>
+                    <td>
+                        <span class="use-case">Development:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Staging:</span> <span class="suggested-value">true</span><br>
+                        <span class="use-case">Production:</span> <span class="suggested-value">false</span>
+                    </td>
+                    <td class="business-impact">Helps troubleshoot issues</td>
+                </tr>
+                <tr>
+                    <td><span class="parameter-name">technical.browser.minVersion.chrome</span></td>
+                    <td class="description">Minimum Chrome version supported</td>
+                    <td><span class="type-indicator">String</span></td>
+                    <td><span class="optional">OPTIONAL</span></td>
+                    <td><span class="default-value">70</span></td>
+                    <td>
+                        <span class="use-case">Modern:</span> <span class="suggested-value">"80"</span><br>
+                        <span class="use-case">Compatible:</span> <span class="suggested-value">"70"</span><br>
+                        <span class="use-case">Legacy:</span> <span class="suggested-value">"60"</span>
+                    </td>
+                    <td class="business-impact">Affects browser compatibility and features available</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip">
+            <strong>💡 Configuration Tips:</strong><br>
+            • Start with required parameters and basic display settings<br>
+            • Add responsive configuration for mobile optimization<br>
+            • Enable analytics to measure and improve performance<br>
+            • Use A/B testing to optimize conversion rates<br>
+            • Consider compliance requirements for your audience
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Important Notes:</strong><br>
+            • All weights in A/B tests must sum to 100<br>
+            • GDPR settings don't constitute legal advice<br>
+            • Test configuration thoroughly before production<br>
+            • Monitor performance impact of all features
+        </div>
+    </div>
+</body>
+</html>
